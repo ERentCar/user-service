@@ -51,6 +51,17 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
+    public Owner updatePlan(Long planId, Long ownerId) {
+        Plan plan=planRepository.findById(planId)
+                .orElseThrow(()->new ResourceNotFoundException("PLAN", planId));
+        Owner owner=ownerRepository.findById(ownerId).map(planAux->
+                        ownerRepository.save(planAux.withPlan(plan)))
+                .orElseThrow(()->new ResourceNotFoundException("OWNER",ownerId));
+        /*owner.setPlan(plan);*/
+        return owner;
+    }
+
+    @Override
     public Owner AuthClient(String email, String password) {
         return null;
     }

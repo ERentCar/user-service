@@ -12,6 +12,7 @@ public interface OwnerService {
     List<Owner> getAll();
     Owner getById(Long ownerId);
     Owner create(Owner owner);
+    Owner updatePlan(Long planId,Long ownerId);
     Owner AuthClient(String email, String password);
 }
 

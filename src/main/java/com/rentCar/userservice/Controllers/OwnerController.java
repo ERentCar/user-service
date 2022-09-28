@@ -28,4 +28,9 @@ public class OwnerController {
     public OwnerResource createOwner(@Valid @RequestBody CreateOwnerResource request){
         return mapper.toResource(ownerService.create(mapper.toModel(request)));
     }
+    @PutMapping("{ownerId}/plan/{planId}")
+    public OwnerResource updateOwnerPlan(@PathVariable("ownerId")Long ownerId,
+                                         @PathVariable("planId")Long planId){
+        return mapper.toResource(ownerService.updatePlan(planId,ownerId));
+    }
 }
