@@ -10,4 +10,5 @@ public interface ClientService {
     Client getById(Long clientId);
     Client create(Client client);
     Client AuthClient(String email, String password);
+    Client setRating(Long clientId,Double rating);
 }

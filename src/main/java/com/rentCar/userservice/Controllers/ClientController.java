@@ -3,6 +3,7 @@ package com.rentCar.userservice.Controllers;
 
 import com.rentCar.userservice.Entities.Client;
 import com.rentCar.userservice.Mapping.ClientMapper;
+import com.rentCar.userservice.Resource.Auth;
 import com.rentCar.userservice.Resource.ClientResource;
 import com.rentCar.userservice.Resource.CreateClientResource;
 import com.rentCar.userservice.Services.ClientService;
@@ -32,5 +33,14 @@ public class ClientController {
     public ClientResource createClient(@Valid @RequestBody CreateClientResource request){
 
         return mapper.toResource(clientService.create(mapper.toModel(request)));
+    }
+    @PutMapping("{clientId}/rating/{rating}")
+    public void updateRating(@PathVariable("clientId")Long clientId,
+                             @PathVariable("rating")Double rating){
+        clientService.setRating(clientId,rating);
+    }
+    @GetMapping("Auth")
+    public ClientResource Auth(@Valid @RequestBody Auth request){
+        return  mapper.toResource(clientService.AuthClient(request.getEmail(),request.getPassword()));
     }
 }

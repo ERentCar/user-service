@@ -39,6 +39,11 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
+    public Owner getByIdForCar(Long ownerId) {
+        return null;
+    }
+
+    @Override
     public Owner create(Owner owner){
         Set<ConstraintViolation<Owner>> violations=validator.validate(owner);
         if(!violations.isEmpty()){
@@ -62,7 +67,14 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public Owner AuthClient(String email, String password) {
-        return null;
+    public Owner AuthOwner(String email, String password) {
+        return ownerRepository.AuthOwner(email,password);
+    }
+
+    @Override
+    public Owner setRating(Long ownerId, Double rating) {
+        Owner owner=ownerRepository.findById(ownerId).map(aux->ownerRepository.save(aux.withRating(rating)))
+                .orElseThrow(()->new ResourceNotFoundException("OWNER",ownerId));
+        return owner;
     }
 }

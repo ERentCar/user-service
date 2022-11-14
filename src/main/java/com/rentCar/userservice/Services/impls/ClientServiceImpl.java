@@ -45,6 +45,13 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client AuthClient(String email, String password) {
-        return null;
+        return clientRepository.AuthClient(email,password);
+    }
+
+    @Override
+    public Client setRating(Long clientId, Double rating) {
+        Client client=clientRepository.findById(clientId).map(aux->clientRepository.save(aux.withRating(rating)))
+                .orElseThrow(()->new ResourceNotFoundException("CLIENT",clientId));
+        return client;
     }
 }
