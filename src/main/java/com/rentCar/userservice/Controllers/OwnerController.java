@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/v1/owners")
 public class OwnerController {
@@ -44,8 +45,8 @@ public class OwnerController {
                              @PathVariable("rating")Double rating){
         ownerService.setRating(ownerId,rating);
     }
-    @GetMapping("Auth")
-    public OwnerCarResource getByIdForCar(@Valid @RequestBody Auth request){
+    @PostMapping("Auth")
+    public OwnerCarResource Auth(@Valid @RequestBody Auth request){
         return  mapper.toOwnerCarResource(ownerService.AuthOwner(request.getEmail(),request.getPassword()));
     }
 }

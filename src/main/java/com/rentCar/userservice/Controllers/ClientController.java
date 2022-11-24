@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/v1/clients")
 public class ClientController {
@@ -39,7 +40,7 @@ public class ClientController {
                              @PathVariable("rating")Double rating){
         clientService.setRating(clientId,rating);
     }
-    @GetMapping("Auth")
+    @PostMapping("Auth")
     public ClientResource Auth(@Valid @RequestBody Auth request){
         return  mapper.toResource(clientService.AuthClient(request.getEmail(),request.getPassword()));
     }
